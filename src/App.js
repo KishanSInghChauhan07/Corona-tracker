@@ -3,14 +3,23 @@ import styles from './App.module.css';
 import Cards from './Components/Cards/Cards';
 import CountryPicker from './Components/CountryPicker/CountryPicker';
 import Chart from './Components/Chart/Chart';
-
+import {fetchData} from './api'
 class App extends Component {
-  state = {  }
+  state = { 
+    data: {}
+  }
+  async componentDidMount(){
+    const fetchedData = await fetchData();
+    this.setState({
+      data:fetchedData
+    })    
+  }
   render() { 
+    const {data} = this.state
     return (
       <div className={styles.container}>
-        <Cards />
-        <CountryPicker />
+        <Cards data = { data } />
+        <CountryPicker /> 
         <Chart />
       </div>
     );
